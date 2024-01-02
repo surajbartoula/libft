@@ -6,7 +6,7 @@
 /*   By: sbartoul <sbartoul@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 21:08:30 by sbartoul          #+#    #+#             */
-/*   Updated: 2023/12/26 14:55:04 by sbartoul         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:21:00 by sbartoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	*ft_calloc(size_t num, size_t size)
 {
+	size_t	len;
 	void	*ptr;
 
-	ptr = malloc(num * size);
+	len = num * size;
+	ptr = malloc(len);
 	if (!ptr)
 		return (0);
-	ft_bzero(ptr, num);
+	ft_bzero(ptr, len);
+	if (size && (num > UINT32_MAX / size))
+		return (NULL);
 	return (ptr);
 }
