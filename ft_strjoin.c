@@ -15,24 +15,23 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
-	size_t	s1len;
-	size_t	s2len;
-	size_t	totallen;
-	size_t	i;
+	char	*ptr;
 
-	i = 0;
-	if (!s1 || !s2)
-		return (ft_strdup(""));
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
-	totallen = s1len + s2len;
-	str = (char *)malloc(sizeof(char) * (totallen + 1));
-	if (!str)
+	if (!s1 && !s2)
 		return (0);
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
-	str[i] = '\0';
+	else if (!s1)
+		return ((char *)s2);
+	else if (!s2)
+		return ((char *)s1);
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (str)
+	{
+		ptr = str;
+		while (*s1)
+			*ptr++ = *s1++;
+		while (*s2)
+			*ptr++ = *s2++;
+		*ptr = '\0';
+	}
 	return (str);
 }

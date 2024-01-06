@@ -6,31 +6,32 @@
 /*   By: sbartoul <sbartoul@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:47:21 by sbartoul          #+#    #+#             */
-/*   Updated: 2023/12/21 18:15:23 by sbartoul         ###   ########.fr       */
+/*   Updated: 2024/01/07 03:09:01 by sbartoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t len)
+size_t	ft_strlcat(char *dest, const char *src, size_t buffersize)
 {
-	size_t	i;
-	size_t	si;
-	size_t	srcsize;
+	size_t	destlen;
+	size_t	srclen;
+	size_t	space;
 
-	i = 0;
-	si = 0;
-	if ((!src || !dest) && !len)
-		return (0);
-	srcsize = ft_strlen(src);
-	while (dest[i] && i < len)
-		i++;
-	while (src[si] && (i + si + 1) < len)
+	destlen = ft_strlen(dest);
+	srclen = ft_strlen(src);
+	if (buffersize <= destlen)
+		return (buffersize + srclen);
+	space = buffersize - destlen - 1;
+	if (srclen <= space)
 	{
-		dest[i + si] = src[si];
-		si++;
+		ft_memcpy(dest + destlen, src, srclen);
+		dest[destlen + srclen] = '\0';
 	}
-	if (i < len)
-		dest[i + si] = '\0';
-	return (i + srcsize);
+	else
+	{
+		ft_memcpy(dest + destlen, src, space);
+		dest[buffersize - 1] = '\0';
+	}
+	return (destlen + srclen);
 }

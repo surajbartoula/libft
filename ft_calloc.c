@@ -17,12 +17,12 @@ void	*ft_calloc(size_t num, size_t size)
 	size_t	len;
 	void	*ptr;
 
+	if (size && (num > SIZE_MAX / size))
+		return (NULL);
 	len = num * size;
 	ptr = malloc(len);
 	if (!ptr)
 		return (0);
 	ft_bzero(ptr, len);
-	if (size && (num > UINT32_MAX / size))
-		return (NULL);
 	return (ptr);
 }
